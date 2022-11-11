@@ -12,7 +12,7 @@ An sbt plugin for publishing/consuming packages to/from AWS CodeArtifact.
 First, you will need a CodeArtifact repository. Then, add the following to your sbt `project/plugins.sbt` file:
 
 ```scala
-addSbtPlugin("io.github.bbstilson" % "sbt-codeartifact" % version)
+addSbtPlugin("io.github.richarddowsett" % "sbt-codeartifact" % version)
 ```
 
 ## Usage
