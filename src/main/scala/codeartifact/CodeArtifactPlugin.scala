@@ -28,9 +28,10 @@ object CodeArtifactPlugin extends AutoPlugin {
     codeArtifactPublish := dynamicallyPublish.value,
     codeArtifactRepo := CodeArtifactRepo.fromUrl(codeArtifactUrl.value),
     codeArtifactToken := sys.env
-      .get(
-        "CODEARTIFACT_AUTH_TOKEN")
-      .orElse(Credentials.loadCredentials(Path.userHome / ".sbt" / "credentials").toOption.map(_.passwd))
+      .get("CODEARTIFACT_AUTH_TOKEN")
+      .orElse(
+        Credentials.loadCredentials(Path.userHome / ".sbt" / "credentials").toOption.map(_.passwd)
+      )
       .getOrElse(
         CodeArtifact.getAuthToken(codeArtifactRepo.value)
       ),
@@ -111,9 +112,9 @@ object CodeArtifactPlugin extends AutoPlugin {
   }
 
   private def reportPublishResults(
-                                    publishResults: Seq[requests.Response],
-                                    logger: ManagedLogger
-                                  ) = {
+    publishResults: Seq[requests.Response],
+    logger: ManagedLogger
+  ) = {
     if (publishResults.forall(_.is2xx)) {
       logger.info(s"Successfully published to AWS Codeartifact")
     } else {

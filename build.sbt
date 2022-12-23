@@ -34,6 +34,13 @@ lazy val `sbt-codeartifact` = project
     if (isSnapshot.value) Some("snapshots".at(nexus + "content/repositories/snapshots"))
     else Some("releases".at(nexus + "service/local/staging/deploy/maven2"))
   })
+  .settings {
+    addCommandAlias(
+      name = "validate",
+      value =
+        "clean; scalafmtCheckAll; scalafmtSbtCheck; undeclaredCompileDependenciesTest; unusedCompileDependenciesTest; test:test"
+    )
+  }
   .settings(
     Seq(
       scalacOptions -= "-Xfatal-warnings",
@@ -44,11 +51,23 @@ lazy val `sbt-codeartifact` = project
       }
     ),
     libraryDependencies ++= Seq(
-      "software.amazon.awssdk" % "sso" % "2.17.103",
       "software.amazon.awssdk" % "codeartifact" % "2.17.103",
-      "software.amazon.awssdk" % "sts" % "2.17.103",
       "com.lihaoyi" %% "requests" % "0.6.9",
       "com.lihaoyi" %% "os-lib" % "0.7.8",
+      "com.lihaoyi" %% "geny" % "0.6.10",
+      "org.scala-lang.modules" %% "scala-xml" % "1.0.6",
+      "org.scala-sbt" %% "collections" % "1.2.8",
+      "org.scala-sbt" %% "core-macros" % "1.2.8",
+      "org.scala-sbt" %% "io" % "1.2.2",
+      "org.scala-sbt" %% "librarymanagement-core" % "1.2.4",
+      "org.scala-sbt" %% "librarymanagement-ivy" % "1.2.4",
+      "org.scala-sbt" %% "main" % "1.2.8",
+      "org.scala-sbt" %% "main-settings" % "1.2.8",
+      "org.scala-sbt" % "sbt" % "1.2.8",
+      "org.scala-sbt" %% "task-system" % "1.2.8",
+      "org.scala-sbt" %% "util-logging" % "1.2.4",
+      "org.scala-sbt" %% "util-position" % "1.2.4",
+      "software.amazon.awssdk" % "utils" % "2.17.103",
       "com.lihaoyi" %% "utest" % "0.7.10" % Test
     ),
     testFrameworks += new TestFramework("utest.runner.Framework")
