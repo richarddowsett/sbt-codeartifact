@@ -42,14 +42,6 @@ lazy val `sbt-codeartifact` = project
     )
   }
   .settings(
-    Seq(
-      scalacOptions -= "-Xfatal-warnings",
-      pluginCrossBuild / sbtVersion := {
-        scalaBinaryVersion.value match {
-          case "2.12" => "1.2.8" // set minimum sbt version
-        }
-      }
-    ),
     libraryDependencies ++= Seq(
       "software.amazon.awssdk" % "codeartifact" % "2.17.103",
       "com.lihaoyi" %% "requests" % "0.6.9",
